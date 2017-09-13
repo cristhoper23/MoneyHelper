@@ -16,7 +16,7 @@
         android:paddingBottom="16dp"/>
 
     <EditText
-        android:id="@+id/monto"
+        android:id="@+id/montoEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
@@ -29,24 +29,26 @@
         android:orientation="horizontal"
         android:paddingBottom="16dp">
         <RadioButton
+            android:id="@+id/radioIngreso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/radioIngr"
             android:textSize="18dp"
             android:layout_weight="1"
-            android:onClick="radioIngresoEgreso"/>
+            android:onClick="radioButtonClicked"/>
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioEgreso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/radioEgr"
             android:textSize="18dp"
-            android:onClick="radioIngresoEgreso"/>
+            android:onClick="radioButtonClicked"/>
     </RadioGroup>
 
     <Spinner
+        android:id="@+id/tipoCuentaSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
@@ -55,6 +57,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnRegis"/>
+        android:text="@string/btnRegis"
+        android:onClick="registrarOperacion"/>
 </LinearLayout>
 
