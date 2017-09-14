@@ -6,22 +6,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.cristhoper.moneyhelper.activities.NewOperationActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="19dp"
+        android:textSize="19sp"
         android:text="@string/regIngrEgr"
         android:paddingBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/montoEditText"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
-        android:inputType="number"
-        android:hint="@string/hintMonto"/>
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/montoEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:inputType="numberDecimal"
+            android:hint="@string/hintMonto"/>
+    </android.support.design.widget.TextInputLayout>
 
     <RadioGroup
         android:layout_width="match_parent"

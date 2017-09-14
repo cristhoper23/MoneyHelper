@@ -12,7 +12,7 @@
     <string name="radioIngr">Ingreso</string>
     <string name="radioEgr">Egreso</string>
     <string-array name="tipoCuenta">
-        <item>Tipo de cuenta</item>
+        <item>Seleccionar tipo de cuenta</item>
         <item>Tarjeta de Crédito</item>
         <item>Ahorro</item>
         <item>Efectivo</item>

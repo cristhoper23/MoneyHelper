@@ -12,6 +12,7 @@ public class Saldo {
     private Double saldoAhorro = 0.0, saldoCredito = 0.0, saldoEfectivo = 0.0;
     private Operation operacion;
     private String mensaje;
+    private Double mtEgreso = 0.0, mtIngreso = 0.0;
 
     private static Saldo _INSTANCE = null;
 
@@ -35,6 +36,7 @@ public class Saldo {
                 //Si es Egreso, se analiza si el monto ingresado no es mayor al saldo disponible
                 if (saldoAhorro >= monto || saldoCredito >= monto || saldoEfectivo >= monto){
                     mensaje = null;
+                    mtEgreso = mtEgreso + monto;
                     switch (tipoCuenta){
                         case "Ahorro":
                             saldoAhorro = saldoAhorro - monto;
@@ -49,32 +51,24 @@ public class Saldo {
                 } else {
                     mensaje = "No dispone del saldo suficiente para realizar la operación";
                 }
-        }
+                break;
 
-        if(tipoDinero.equals("Egreso") && (saldoAhorro >= monto || saldoCredito >= monto || saldoEfectivo >= monto)){
-            switch (tipoCuenta){
-                case "Ahorro":
-                    saldoAhorro = saldoAhorro - monto;
-                    break;
-                case "Efectivo":
-                    saldoEfectivo = saldoEfectivo - monto;
-                    break;
-                default:
-                    saldoCredito = saldoCredito - monto;
-                    break;
-            }
-        }else{
-            switch (tipoCuenta){
-                case "Ahorro":
-                    saldoAhorro = saldoAhorro + monto;
-                    break;
-                case "Efectivo":
-                    saldoEfectivo = saldoEfectivo + monto;
-                    break;
-                default:
-                    saldoCredito = saldoCredito + monto;
-                    break;
-            }
+            default:
+
+                //Caso en el que el tipo de dinero es Ingreso
+                mensaje = null;
+                mtIngreso = mtIngreso + monto;
+                switch (tipoCuenta){
+                    case "Ahorro":
+                        saldoAhorro = saldoAhorro + monto;
+                        break;
+                    case "Efectivo":
+                        saldoEfectivo = saldoEfectivo + monto;
+                        break;
+                    default:
+                        saldoCredito = saldoCredito + monto;
+                        break;
+                }
         }
     }
 
@@ -112,6 +106,16 @@ public class Saldo {
 
     public String getMensaje() {
         return mensaje;
+    }
+
+    public Double getMtEgreso() {
+        mtEgreso = (mtEgreso * 100)/(mtEgreso+mtIngreso);
+        return mtEgreso;
+    }
+
+    public Double getMtIngreso() {
+        mtIngreso = (mtIngreso * 100)/(mtEgreso+mtIngreso);
+        return mtIngreso;
     }
 
     @Override
