@@ -1,13 +1,16 @@
 package com.cristhoper.moneyhelper.activities;
 
+import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cristhoper.moneyhelper.R;
@@ -21,6 +24,7 @@ public class NewOperationActivity extends AppCompatActivity {
 
     private EditText montoEditText;
     private Spinner SpinnerCuenta;
+    private TextView txtSaldoDialog, montoSaldoDialog, montoSolicDialog;
 
     private String montoDinero, tipoDinero, tipoCuenta;
 
@@ -49,6 +53,7 @@ public class NewOperationActivity extends AppCompatActivity {
         });
     }
 
+    //MÉTODO PARA OBTENER EL VALOR DEL RADIOBUTTON SELECCIONADO
     public void radioButtonClicked(View view){
         switch (((RadioButton) view).getText().toString()){
             case "Ingreso":
@@ -60,6 +65,7 @@ public class NewOperationActivity extends AppCompatActivity {
         }
     }
 
+    //MÉTODO PARA REGISTRAR LA OPERACIÓN SOLICITADA
     public void registrarOperacion(View view){
         montoDinero = montoEditText.getText().toString();
         boolean montoValido = validarMonto(montoDinero);
@@ -81,7 +87,7 @@ public class NewOperationActivity extends AppCompatActivity {
         OperationRepository objectOperationRep = OperationRepository.getInstance();
         objectOperationRep.agregarOperacion(operacion);
 
-
+        //Se obtiene la única instancia de la clase Saldo, la cual almacena todos los saldos acumulados por tipo
         Saldo saldo = Saldo.getInstance();
         saldo.obtenerSaldos(operacion);
 
@@ -89,10 +95,26 @@ public class NewOperationActivity extends AppCompatActivity {
         if (saldo.getMensaje() == null) {
             finish();
         } else {
-            Toast.makeText(this, saldo.getMensaje(), Toast.LENGTH_SHORT).show();
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.custom_dialog_egreso);
+            dialog.setTitle("Operación fallida");
+
+            txtSaldoDialog = (TextView) dialog.findViewById(R.id.txtSaldoDialog);
+            montoSaldoDialog = (TextView) dialog.findViewById(R.id.montoSaldoDialog);
+            montoSolicDialog = (TextView) dialog.findViewById(R.id.montoSolicDialog);
+
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_custom_dialog);
+            dialog.getWindow().setLayout(400,400);
+
+            txtSaldoDialog.setText(tipoCuenta + " disponible: ");
+            montoSaldoDialog.setText("S/ " + obtTipoCuenta(tipoCuenta));
+
+            montoSolicDialog.setText("S/ " + Double.parseDouble(montoDinero));
+            dialog.show();
         }
     }
 
+    // MÉTODOS DE AYUDA
     private boolean validarMonto(String monto){
         try
         {
@@ -102,6 +124,21 @@ public class NewOperationActivity extends AppCompatActivity {
         catch (NumberFormatException e)
         {
             return false;
+        }
+    }
+
+    private String obtTipoCuenta(String tipoCuenta){
+        Saldo saldo = Saldo.getInstance();
+        switch (tipoCuenta){
+            case "Ahorro":
+                Log.d("Cadena ahorro: ", String.valueOf(saldo.getSaldoAhorro()));
+                return String.valueOf(saldo.getSaldoAhorro());
+
+            case "Efectivo":
+                return String.valueOf(saldo.getSaldoEfectivo());
+
+            default:
+                return String.valueOf(saldo.getSaldoCredito());
         }
     }
 }

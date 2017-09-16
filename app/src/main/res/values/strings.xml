@@ -18,5 +18,8 @@
         <item>Efectivo</item>
     </string-array>
     <string name="btnRegis">Registrar</string>
+
+    <string name="txtGeneral_Dialog">No dispone de suficiente saldo para realizar la transacción:</string>
+    <string name="txtMontoSolicitado">Monto solicitado: </string>
 </resources>
 

@@ -95,6 +95,7 @@ public class Saldo {
         }
     }
 
+    // MÉTODOS DE AYUDA
     private void imprimirMensaje(){
         mensaje = "No dispone del saldo suficiente para realizar la operación";
     }
