@@ -1,5 +1,6 @@
 package com.cristhoper.moneyhelper.models;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.cristhoper.moneyhelper.activities.NewOperationActivity;
@@ -9,10 +10,9 @@ import com.cristhoper.moneyhelper.activities.NewOperationActivity;
  */
 
 public class Saldo {
-    private Double saldoAhorro = 0.0, saldoCredito = 0.0, saldoEfectivo = 0.0;
+    private Double saldoAhorro = 0.0, saldoCredito = 2000.00, saldoEfectivo = 0.0, mtEgreso = 0.0, mtIngreso = 0.0;
     private Operation operacion;
     private String mensaje;
-    private Double mtEgreso = 0.0, mtIngreso = 0.0;
 
     private static Saldo _INSTANCE = null;
 
@@ -32,9 +32,31 @@ public class Saldo {
         //Se analiza el tipo de monto (Ingreso o Egreso)
         switch (tipoDinero){
             case "Egreso":
-
+                switch (tipoCuenta){
+                    case "Ahorro":
+                        if(saldoAhorro >= monto){
+                            saldoAhorro = hallarSaldo(saldoAhorro, monto);
+                        }else{
+                            imprimirMensaje();
+                        }
+                        break;
+                    case "Efectivo":
+                        if(saldoEfectivo >= monto){
+                            saldoEfectivo = hallarSaldo(saldoEfectivo, monto);
+                        }else{
+                            imprimirMensaje();
+                        }
+                        break;
+                    default:
+                        if(saldoCredito >= monto){
+                            saldoCredito = hallarSaldo(saldoCredito, monto);
+                        }else{
+                            imprimirMensaje();
+                        }
+                        break;
+                }
                 //Si es Egreso, se analiza si el monto ingresado no es mayor al saldo disponible
-                if (saldoAhorro >= monto || saldoCredito >= monto || saldoEfectivo >= monto){
+                /*if (saldoAhorro >= monto || saldoCredito >= monto || saldoEfectivo >= monto){
                     mensaje = null;
                     mtEgreso = mtEgreso + monto;
                     switch (tipoCuenta){
@@ -50,14 +72,14 @@ public class Saldo {
                     }
                 } else {
                     mensaje = "No dispone del saldo suficiente para realizar la operación";
-                }
+                }*/
                 break;
 
             default:
-
                 //Caso en el que el tipo de dinero es Ingreso
                 mensaje = null;
-                mtIngreso = mtIngreso + monto;
+                mtIngreso = (mtIngreso + monto);
+
                 switch (tipoCuenta){
                     case "Ahorro":
                         saldoAhorro = saldoAhorro + monto;
@@ -69,9 +91,24 @@ public class Saldo {
                         saldoCredito = saldoCredito + monto;
                         break;
                 }
+                break;
         }
     }
 
+    private void imprimirMensaje(){
+        mensaje = "No dispone del saldo suficiente para realizar la operación";
+    }
+
+    private Double hallarSaldo(Double tipoSaldo, Double monto){
+        mensaje = null;
+        mtEgreso = mtEgreso + monto;
+
+        tipoSaldo = tipoSaldo - monto;
+        return tipoSaldo;
+    }
+
+
+    // GETTERS AND SETTERS
     public Double getSaldoAhorro() {
         return saldoAhorro;
     }
@@ -109,12 +146,10 @@ public class Saldo {
     }
 
     public Double getMtEgreso() {
-        mtEgreso = (mtEgreso * 100)/(mtEgreso+mtIngreso);
-        return mtEgreso;
+            return mtEgreso;
     }
 
     public Double getMtIngreso() {
-        mtIngreso = (mtIngreso * 100)/(mtEgreso+mtIngreso);
         return mtIngreso;
     }
 

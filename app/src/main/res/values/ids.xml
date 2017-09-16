@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Si se borra este xml nos da un error de renderización por el TextInputLayout, el cual no afecta al momento de ejecutar la app -->
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
+</resources>

@@ -65,7 +65,7 @@ public class NewOperationActivity extends AppCompatActivity {
         boolean montoValido = validarMonto(montoDinero);
 
         if (!montoValido){
-            Toast.makeText(this, "Monto no valido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Monto no válido", Toast.LENGTH_SHORT).show();
             return;
         }else if (tipoDinero == null){
             Toast.makeText(this, "Seleccionar Ingreso o Egreso", Toast.LENGTH_SHORT).show();

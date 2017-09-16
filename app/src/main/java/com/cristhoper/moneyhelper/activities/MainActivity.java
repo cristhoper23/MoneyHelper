@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int NEW_OPERATION_REQUEST = 100;
 
-    private TextView textAhorro, textCredito, textEfectivo;
+    private TextView textAhorro, textCredito, textEfectivo, txtPorcentajes;
     private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
         textAhorro = (TextView) findViewById(R.id.txtAhorro);
         textCredito = (TextView) findViewById(R.id.txtCredito);
         textEfectivo = (TextView) findViewById(R.id.txtEfectivo);
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        txtPorcentajes = (TextView) findViewById(R.id.txtPorcentajes);
 
         mostrarSaldos();
     }
@@ -48,10 +50,20 @@ public class MainActivity extends AppCompatActivity {
         textCredito.setText(saldoActual.getSaldoCredito().toString());
         textEfectivo.setText(saldoActual.getSaldoEfectivo().toString());
 
-        //ANALIZAR ESTE CODIGO
-        Long ingreso = Math.round(saldoActual.getMtIngreso());
-        int p = (int) ingreso.longValue();
-        Log.d("progress", String.valueOf(p));
-        progressBar.setProgress((int)ingreso.doubleValue());
+        //Progreso de los ingresos y egresos en porcentaje
+        double mtIngreso = saldoActual.getMtIngreso();
+        double mtEgreso = saldoActual.getMtEgreso();
+        double mTotal = mtIngreso + mtEgreso;
+
+        mtIngreso = Math.round((mtIngreso * 100)/(mTotal));
+        mtEgreso = Math.round((mtEgreso * 100)/(mTotal));
+
+        int i = (int) mtIngreso;
+        int e = (int) mtEgreso;
+
+        txtPorcentajes.setText(i + " %   /   " + e + " %");
+
+        //Progreso de la barra
+        progressBar.setProgress(i);
     }
 }
