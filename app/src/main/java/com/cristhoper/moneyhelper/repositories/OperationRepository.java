@@ -30,4 +30,6 @@ public class OperationRepository {
     public void agregarOperacion(Operation operation){
         this.operaciones.add(operation);
     }
+
+    public void removerOperacion(Operation operation) { this.operaciones.remove(operation); }
 }

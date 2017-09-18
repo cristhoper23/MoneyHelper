@@ -79,38 +79,42 @@ public class NewOperationActivity extends AppCompatActivity {
         }else if (tipoCuenta == null){
             Toast.makeText(this, "Seleccionar tipo de cuenta", Toast.LENGTH_SHORT).show();
             return;
-        }
+        }else{
 
-        Operation operacion = new Operation(Double.parseDouble(montoDinero), tipoDinero, tipoCuenta);
+            Operation operacion = new Operation(Double.parseDouble(montoDinero), tipoDinero, tipoCuenta);
 
-        //Se almacena cada operación en el array list
-        OperationRepository objectOperationRep = OperationRepository.getInstance();
-        objectOperationRep.agregarOperacion(operacion);
+            //Se almacena cada operación en el array list
+            OperationRepository objectOperationRep = OperationRepository.getInstance();
+            objectOperationRep.agregarOperacion(operacion);
 
-        //Se obtiene la única instancia de la clase Saldo, la cual almacena todos los saldos acumulados por tipo
-        Saldo saldo = Saldo.getInstance();
-        saldo.obtenerSaldos(operacion);
+            //Se obtiene la única instancia de la clase Saldo, la cual almacena todos los saldos acumulados por tipo
+            Saldo saldo = Saldo.getInstance();
+            saldo.obtenerSaldos(operacion);
 
-        //Se verifica que el atributo mensaje de la clase Saldo sea nulo, de modo que se pueda retornar al activity principal
-        if (saldo.getMensaje() == null) {
-            finish();
-        } else {
-            final Dialog dialog = new Dialog(this);
-            dialog.setContentView(R.layout.custom_dialog_egreso);
-            dialog.setTitle("Operación fallida");
+            //Se verifica que el atributo mensaje de la clase Saldo sea nulo, de modo que se pueda retornar al activity principal
+            if (saldo.getMensaje() == null) {
+                finish();
+            } else {
+                //Si el mensaje no es nulo se borra la operación analizada
+                objectOperationRep.removerOperacion(operacion);
 
-            txtSaldoDialog = (TextView) dialog.findViewById(R.id.txtSaldoDialog);
-            montoSaldoDialog = (TextView) dialog.findViewById(R.id.montoSaldoDialog);
-            montoSolicDialog = (TextView) dialog.findViewById(R.id.montoSolicDialog);
+                final Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.custom_dialog_egreso);
+                dialog.setTitle("Operación fallida");
 
-            dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_custom_dialog);
-            dialog.getWindow().setLayout(400,400);
+                txtSaldoDialog = (TextView) dialog.findViewById(R.id.txtSaldoDialog);
+                montoSaldoDialog = (TextView) dialog.findViewById(R.id.montoSaldoDialog);
+                montoSolicDialog = (TextView) dialog.findViewById(R.id.montoSolicDialog);
 
-            txtSaldoDialog.setText(tipoCuenta + " disponible: ");
-            montoSaldoDialog.setText("S/ " + obtTipoCuenta(tipoCuenta));
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_custom_dialog);
+                dialog.getWindow().setLayout(400,400);
 
-            montoSolicDialog.setText("S/ " + Double.parseDouble(montoDinero));
-            dialog.show();
+                txtSaldoDialog.setText(tipoCuenta + " disponible: ");
+                montoSaldoDialog.setText("S/ " + obtTipoCuenta(tipoCuenta));
+
+                montoSolicDialog.setText("S/ " + Double.parseDouble(montoDinero));
+                dialog.show();
+            }
         }
     }
 
