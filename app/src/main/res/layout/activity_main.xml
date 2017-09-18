@@ -20,10 +20,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="italic"
             android:paddingBottom="18dp"
             android:text="@string/contIngrEgr" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:paddingBottom="10dp"
+                android:text="@string/simbolSol"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +47,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:paddingBottom="18dp"
                 android:layout_weight="1"
                 android:text="@string/saldoAhorro" />
@@ -41,7 +56,7 @@
                 android:id="@+id/txtAhorro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textAlignment="textEnd"
                 android:paddingBottom="18dp"
                 android:layout_weight="2"
@@ -55,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:paddingBottom="18dp"
                 android:text="@string/saldoCredito" />
 
@@ -63,7 +78,7 @@
                 android:id="@+id/txtCredito"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textAlignment="textEnd"
                 android:paddingBottom="18dp"
                 android:layout_weight="1"
@@ -77,7 +92,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:paddingBottom="18dp"
                 android:text="@string/saldoEfectivo" />
 
@@ -85,7 +100,7 @@
                 android:id="@+id/txtEfectivo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textAlignment="textEnd"
                 android:paddingBottom="18dp"
                 android:layout_weight="1"
@@ -96,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
-            android:textSize="19sp"
+            android:textSize="18sp"
             android:textStyle="italic"
             android:paddingTop="18dp"
             android:paddingBottom="8dp"
@@ -123,14 +138,23 @@
         </RelativeLayout>
     </LinearLayout>
 
-
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/colorPrimary"
+        android:src="@mipmap/ic_plus"
         android:onClick="nuevaOperacion"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/ic_statistic"
+        android:onClick="verGrafica"/>
 </RelativeLayout>
+
+

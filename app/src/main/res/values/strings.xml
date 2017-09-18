@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MoneyHelper</string>
     <string name="contIngrEgr">Contabilidad de Ingresos / Egresos</string>
+    <string name="simbolSol">Soles (S/.)</string>
     <string name="saldoAhorro">Saldo Actual Ahorro</string>
     <string name="saldoCredito">Saldo Actual Crédito</string>
     <string name="saldoEfectivo">Saldo Actual Efectivo</string>

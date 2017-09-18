@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textAhorro, textCredito, textEfectivo, txtPorcentajes;
     private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void nuevaOperacion(View view){
         startActivityForResult(new Intent(this, NewOperationActivity.class), NEW_OPERATION_REQUEST);
+    }
+
+    public void verGrafica(View view){
+        startActivity(new Intent(this, ChartActivity.class));
     }
 
     @Override

@@ -5,7 +5,8 @@ package com.cristhoper.moneyhelper.models;
  */
 
 public class Operation {
-    private Double monto;
+    //el monto se cambió de Double a double para poder convertirlo a float y pasarlo como parametro de la clase BarEntry (CharActivity)
+    private double monto;
     private String tipoDinero;
     private String tipoCuenta;
 
@@ -18,11 +19,11 @@ public class Operation {
         this.tipoCuenta = tipoCuenta;
     }
 
-    public Double getMonto() {
+    public double getMonto() {
         return monto;
     }
 
-    public void setMonto(Double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 

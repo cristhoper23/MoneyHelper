@@ -70,7 +70,7 @@ public class NewOperationActivity extends AppCompatActivity {
         montoDinero = montoEditText.getText().toString();
         boolean montoValido = validarMonto(montoDinero);
 
-        if (!montoValido){
+        if (!montoValido || Double.parseDouble(montoDinero) == 0.0){
             Toast.makeText(this, "Monto no válido", Toast.LENGTH_SHORT).show();
             return;
         }else if (tipoDinero == null){
